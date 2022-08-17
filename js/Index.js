@@ -1,13 +1,13 @@
 const main = document.querySelector('main');
 
 const imgs = [
-    'bobrossparrot.gif',
-    'explodyparrot.gif',
-    'fiestaparrot.gif',
-    'metalparrot.gif',
-    'revertitparrot.gif',
-    'tripletsparrot.gif',
-    'unicornparrot.gif'
+    'bobrossparrot',
+    'explodyparrot',
+    'fiestaparrot',
+    'metalparrot',
+    'revertitparrot',
+    'tripletsparrot',
+    'unicornparrot'
 ];
 
 let cards = '';
@@ -35,9 +35,9 @@ function Start(){
 
     for (i = 0; i < (qtd); i++){
         cards += `
-            <div class="Card" id="${(cardsGame[i]).substr((cardsGame[i].length)-4)}">
+            <div class="Card" data-card="${cardsGame[i]}" id="${cardsGame[i]+i}" onclick="Flip(this)">
                 <div class="Back-side">
-                    <img src="images/${cardsGame[i]}" alt="">
+                    <img src="images/${cardsGame[i]}.gif" alt="">
                 </div>
                 <div class="Front-side">
                     <img src="images/front.png" alt="">
@@ -49,5 +49,43 @@ function Start(){
     console.log(cards);
 }
 
-let card = document.querySelector('.Card');
+let firstCard, secondCard;
 
+function Flip(x){
+    if (firstCard){
+        if (x.id === firstCard.id){
+            alert('Selecione outra carta!');
+            return false;
+        }
+    }
+
+    if (!secondCard){
+        x.classList.add('Flip');
+    }
+    
+    if (!firstCard){
+        firstCard = x;
+        return false;
+    }
+    
+    secondCard = x;
+
+    if (secondCard) {
+        Match(firstCard, secondCard);
+    }
+}
+
+function Match(x, y){
+    if (x.dataset.card === y.dataset.card){
+
+    }else{
+        setTimeout(() => {
+            x.classList.remove("Flip");
+            y.classList.remove("Flip");
+        
+            resetCards();
+          }, 1000);
+    }
+    firstCard = '';
+    secondCard = '';
+}

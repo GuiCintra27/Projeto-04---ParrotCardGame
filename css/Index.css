@@ -81,7 +81,7 @@ main{
     transform: scale(0.97);
 }
 
-.Card:hover {
+.Flip {
     transform: rotateY(180deg);
 }
 
