@@ -1,4 +1,5 @@
 const main = document.querySelector('main');
+let moves = document.getElementById('Moves');
 
 const imgs = [
     'bobrossparrot',
@@ -50,14 +51,19 @@ function Start(){
 }
 
 let firstCard, secondCard;
+let flip = 0;
 
 function Flip(x){
+    
     if (firstCard){
         if (x.id === firstCard.id){
             alert('Selecione outra carta!');
             return false;
         }
     }
+    
+    flip ++;
+    moves.innerHTML = `Jogadas ${flip}`;
 
     if (!secondCard){
         x.classList.add('Flip');
@@ -86,6 +92,13 @@ function Match(x, y){
             resetCards();
           }, 1000);
     }
+
     firstCard = '';
     secondCard = '';
+
+    let win = document.querySelectorAll('.Flip');
+
+    if (win.length === qtd){
+        alert(`Parabéns! Você ganhou em ${flip} jogadas!`);
+    }
 }
