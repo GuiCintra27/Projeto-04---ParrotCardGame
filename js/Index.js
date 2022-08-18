@@ -1,5 +1,7 @@
 const main = document.querySelector('main');
 let moves = document.getElementById('Moves');
+let qtd = 0, x = 0, flip = 0;
+let firstCard, secondCard, cards = '';
 
 const imgs = [
     'bobrossparrot',
@@ -9,10 +11,7 @@ const imgs = [
     'revertitparrot',
     'tripletsparrot',
     'unicornparrot'
-];
-
-let cards = '';
-let qtd, x = 0;
+]
 
 function Start(){
     while (x === 0){
@@ -29,10 +28,8 @@ function Start(){
         }
     }
 
-    let cardsGame = imgs.sort(() => Math.random() - 0.5);
-    cardsGame = cardsGame.slice(-(qtd/2));
-    cardsGame = [...cardsGame, ...cardsGame];
-    cardsGame = cardsGame.sort(() => Math.random() - 0.5);
+    let cardsGame = (imgs.sort(() => Math.random() - 0.5)).slice(-(qtd/2));
+    cardsGame = [...cardsGame, ...cardsGame].sort(() => Math.random() - 0.5);
 
     for (i = 0; i < (qtd); i++){
         cards += `
@@ -49,9 +46,6 @@ function Start(){
     main.innerHTML = cards;
     console.log(cards);
 }
-
-let firstCard, secondCard;
-let flip = 0;
 
 function Flip(x){
     
@@ -81,13 +75,13 @@ function Flip(x){
     }
 }
 
-function Match(x, y){
-    if (x.dataset.card === y.dataset.card){
+function Match(a, b){
+    if (a.dataset.card === b.dataset.card){
 
     }else{
         setTimeout(() => {
-            x.classList.remove("Flip");
-            y.classList.remove("Flip");
+            a.classList.remove("Flip");
+            b.classList.remove("Flip");
         
             resetCards();
           }, 1000);
@@ -99,6 +93,16 @@ function Match(x, y){
     let win = document.querySelectorAll('.Flip');
 
     if (win.length === qtd){
-        alert(`Parabéns! Você ganhou em ${flip} jogadas!`);
+        setTimeout(() => {
+            alert(`Parabéns! Você ganhou em ${flip} jogadas!`);
+            let z = String(prompt('Deseja jogar novamente?'));
+            if (z.toLowerCase() === 'sim'){
+                qtd = 0, x = 0, flip = 0;
+                firstCard = '', secondCard = '', cards = '';
+                return Start();
+            }else {
+                window.close();
+            }
+          }, 1000);  
     }
 }
