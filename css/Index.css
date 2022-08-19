@@ -38,6 +38,24 @@ body{
     background: var(--body-background);
 }
 
+/* TEMPORIZADOR */
+
+#Timer{
+    position: absolute;
+    right: 0;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    background: #0b0b0b;
+    opacity: .7;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 5px;
+    height: 5rem;
+    width: 7.5rem;
+    text-align: center;
+    font-size: 120%;
+}
+
 /* CABEÇALHO */
 
 header{

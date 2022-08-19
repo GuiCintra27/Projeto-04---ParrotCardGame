@@ -1,6 +1,6 @@
 const main = document.querySelector('main');
-let moves = document.getElementById('Moves');
-let qtd = 0, x = 0, flip = 0;
+let moves = document.getElementById('Moves'), timer = document.getElementById('Timer');
+let qtd = 0, x = 0, flip = 0, sec = 0, th = 0, op = 0;
 let firstCard, secondCard, cards = '';
 
 const imgs = [
@@ -11,7 +11,21 @@ const imgs = [
     'revertitparrot',
     'tripletsparrot',
     'unicornparrot'
-]
+];
+
+function stopWatch(){
+    setInterval(() => {
+        timer.innerHTML = `${sec}:${th}` 
+        th++;
+        if(th < 10){
+            th = '0'+th;
+        }
+        if (th === 100){
+            sec ++;
+            th = '0'+0;
+        }
+    },10);
+}
 
 function Start(){
     while (x === 0){
@@ -44,7 +58,10 @@ function Start(){
     }
 
     main.innerHTML = cards;
-    console.log(cards);
+    if (op === 0){
+        stopWatch();
+        op++;
+    }
 }
 
 function Flip(x){
@@ -82,8 +99,6 @@ function Match(a, b){
         setTimeout(() => {
             a.classList.remove("Flip");
             b.classList.remove("Flip");
-        
-            resetCards();
           }, 1000);
     }
 
@@ -97,7 +112,7 @@ function Match(a, b){
             alert(`Parabéns! Você ganhou em ${flip} jogadas!`);
             let z = String(prompt('Deseja jogar novamente?'));
             if (z.toLowerCase() === 'sim'){
-                qtd = 0, x = 0, flip = 0;
+                qtd = 0, x = 0, flip = 0, sec = 0, th = 0;
                 firstCard = '', secondCard = '', cards = '';
                 return Start();
             }else {
